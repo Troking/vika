@@ -1,62 +1,97 @@
-import { ShoppingBag, Heart, Shield, Sparkles } from 'lucide-react';
+import { ShoppingBag, Heart } from 'lucide-react';
 
 interface HeaderProps {
   onOpenGrocery: () => void;
-  activeTab?: string;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-export const Header = ({ onOpenGrocery }: HeaderProps) => {
+export const Header = ({ onOpenGrocery, activeTab, setActiveTab }: HeaderProps) => {
+  const tabs = [
+    { id: 'dashboard', label: 'Главная' },
+    { id: 'meals', label: 'Меню 7 дней' },
+    { id: 'supplements', label: 'Аптечка' },
+    { id: 'checkup', label: 'Анализы' },
+    { id: 'rehab', label: 'Сосуды & Швы' }
+  ];
+
   return (
-    <header className="sticky top-0 z-30 bg-[#fbf9f5]/90 backdrop-blur-md border-b border-stone-200/60 transition-all">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
-        {/* Left: Branding & Patient Profile */}
+    <header className="sticky top-0 z-40 bg-[#FAF7F2]/80 backdrop-blur-xl border-b border-[#EAE5DC]/80 transition-all">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        {/* Left: Chic Brand & Status */}
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-linear-to-br from-rose-100 via-orange-50 to-amber-100 p-0.5 border border-rose-200/50 shadow-xs flex items-center justify-center text-2xl">
+          <div className="w-10 h-10 rounded-2xl bg-white border border-[#E4DED4] shadow-xs flex items-center justify-center text-xl shrink-0">
             🌸
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base sm:text-lg font-bold text-stone-900 tracking-tight">
-                Забота о здоровье Вики
-              </h1>
-              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-800 bg-rose-50/80 px-2.5 py-0.5 rounded-full border border-rose-200/60">
-                <Heart className="w-3 h-3 fill-rose-400 text-rose-400" /> 25 лет • Москва
+              <span className="font-display font-extrabold text-base tracking-tight text-[#1C1A17]">
+                Виктория
+              </span>
+              <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-800 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200/50">
+                <Heart className="w-2.5 h-2.5 fill-rose-500 text-rose-500" /> 25 лет • Москва
               </span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-stone-500 mt-0.5">
-              <span className="font-medium text-stone-600">1 мес. после маммопластики</span>
+            <div className="flex items-center gap-1.5 text-[11px] text-[#7A756C] font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>1 мес. после операции</span>
               <span className="text-stone-300">•</span>
-              <span className="text-emerald-700 font-medium flex items-center gap-1">
-                <Shield className="w-3 h-3 text-emerald-600" /> Защита почек и цистита
-              </span>
+              <span className="text-emerald-700">Защита почек & цистита</span>
             </div>
           </div>
         </div>
 
-        {/* Right Actions */}
-        <div className="flex items-center gap-2.5">
+        {/* Center: Desktop Integrated Segmented Nav */}
+        <nav className="hidden md:flex items-center gap-1 bg-white/90 p-1 rounded-2xl border border-[#E4DED4] shadow-xs">
+          {tabs.map((tab) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-200 ${
+                  isActive
+                    ? 'bg-[#1C1A17] text-white shadow-xs'
+                    : 'text-[#6B655B] hover:text-[#1C1A17] hover:bg-stone-50'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Right: Shopping Cart CTA */}
+        <div className="flex items-center gap-2">
           <button
             onClick={onOpenGrocery}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-white font-medium text-xs sm:text-sm shadow-xs transition active:scale-95"
+            className="flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl bg-[#1C1A17] hover:bg-[#2E2B26] text-white font-semibold text-xs transition active:scale-95 shadow-xs"
           >
-            <ShoppingBag className="w-4 h-4 text-rose-300" />
-            <span className="hidden xs:inline">Список продуктов</span>
+            <ShoppingBag className="w-3.5 h-3.5 text-rose-300" />
+            <span className="hidden xs:inline">Корзина покупок</span>
             <span className="xs:hidden">Покупки</span>
           </button>
         </div>
       </div>
 
-      {/* Mobile status banner */}
-      <div className="sm:hidden px-4 pb-2.5 pt-0 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px]">
-        <span className="shrink-0 bg-white border border-stone-200/60 text-stone-700 font-medium px-2.5 py-0.5 rounded-lg flex items-center gap-1">
-          <Sparkles className="w-3 h-3 text-amber-500" /> Рацион: ~1680 ккал
-        </span>
-        <span className="shrink-0 bg-white border border-stone-200/60 text-sky-700 font-medium px-2.5 py-0.5 rounded-lg">
-          Норма воды: 2.5 л
-        </span>
-        <span className="shrink-0 bg-rose-50 border border-rose-100 text-rose-800 font-medium px-2.5 py-0.5 rounded-lg">
-          Укрепление сосудов
-        </span>
+      {/* Mobile Top Sub-bar */}
+      <div className="md:hidden px-4 pb-2 pt-0 flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px]">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`shrink-0 px-3 py-1 rounded-xl font-bold transition ${
+                isActive
+                  ? 'bg-[#1C1A17] text-white shadow-xs'
+                  : 'bg-white border border-[#E4DED4] text-[#6B655B]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
     </header>
   );
