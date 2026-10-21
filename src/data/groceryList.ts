@@ -7,6 +7,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Кабачки / Цукини молодые',
     amount: '1.5 кг',
+    icon: '🥒',
     note: 'Для омлетов, тушения и гарниров (идеальны для почек)',
     storeTip: 'ВкусВилл / Перекресток',
     estPrice: '220 – 280 ₽'
@@ -16,6 +17,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Огурцы гладкие короткоплодные',
     amount: '1 кг',
+    icon: '🥒',
     note: 'Для салатов и дневных перекусов',
     storeTip: 'ВкусВилл / Самокат',
     estPrice: '180 – 240 ₽'
@@ -25,6 +27,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Цветная капуста (свежая или заморозка)',
     amount: '800 г',
+    icon: '🥦',
     note: 'Безопасный низкооксалатный гарнир',
     storeTip: 'Перекресток / ВкусВилл',
     estPrice: '200 – 260 ₽'
@@ -34,6 +37,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Брокколи (заморозка или свежая)',
     amount: '600 г',
+    icon: '🥦',
     note: 'Витамин C для рубцов после операции',
     storeTip: 'ВкусВилл / Перекресток',
     estPrice: '190 – 250 ₽'
@@ -43,6 +47,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Перец сладкий болгарский (красный/желтый)',
     amount: '600 г (3 шт)',
+    icon: '🫑',
     note: 'Лидер по витамину C для сосудов и рубцов',
     storeTip: 'Самокат / Перекресток',
     estPrice: '240 – 320 ₽'
@@ -52,6 +57,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'vegetables',
     name: 'Свежая зелень: укроп, петрушка, базилик',
     amount: '3 пучка',
+    icon: '🌿',
     note: 'Петрушка — мягкий урологический антисептик',
     storeTip: 'ВкусВилл',
     estPrice: '150 – 190 ₽'
@@ -63,6 +69,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'protein',
     name: 'Филе грудки индейки',
     amount: '1 кг',
+    icon: '🍗',
     note: 'Легкий чистый белок для заживления',
     storeTip: 'ВкусВилл / Индилайт Перекресток',
     estPrice: '480 – 580 ₽'
@@ -72,6 +79,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'protein',
     name: 'Куриное филе (грудка)',
     amount: '800 г',
+    icon: '🍗',
     note: 'Для супов, запекания и лапши соба',
     storeTip: 'ВкусВилл / Петелинка',
     estPrice: '340 – 420 ₽'
@@ -81,6 +89,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'protein',
     name: 'Филе трески / судака / пикши (белая рыба)',
     amount: '1 кг',
+    icon: '🐟',
     note: 'Низкопуриновый белок, защита от камней',
     storeTip: 'ВкусВилл / Перекресток Рыба',
     estPrice: '550 – 720 ₽'
@@ -90,6 +99,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'protein',
     name: 'Семга или форель (филе для запекания)',
     amount: '400 г',
+    icon: '🍣',
     note: 'Омега-3 для памяти и сосудистого эндотелия',
     storeTip: 'ВкусВилл / Перекресток',
     estPrice: '650 – 850 ₽'
@@ -99,6 +109,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'protein',
     name: 'Яйца куриные отборные C0',
     amount: '2 десятка',
+    icon: '🥚',
     note: 'Холин для мозга и белок для тканей',
     storeTip: 'ВкусВилл C0 / Перекресток',
     estPrice: '260 – 320 ₽'
@@ -110,6 +121,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'dairy',
     name: 'Творог 5% традиционный или пластовой',
     amount: '600 г (3 пачки)',
+    icon: '🧀',
     note: 'Связывает оксалаты в ЖКТ, защищая почки',
     storeTip: 'ВкусВилл Творог 5%',
     estPrice: '270 – 360 ₽'
@@ -119,6 +131,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'dairy',
     name: 'Сыр рикотта или моцарелла мини',
     amount: '2 упаковки',
+    icon: '🧀',
     note: 'Минимум соли, максимум кальция',
     storeTip: 'ВкусВилл / Bonfesto',
     estPrice: '290 – 380 ₽'
@@ -128,6 +141,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'dairy',
     name: 'Кефир 2.5% или Ацидофилин',
     amount: '2 бутылки по 900 мл',
+    icon: '🥛',
     note: 'Пробиотики для женской урогенитальной флоры',
     storeTip: 'ВкусВилл / Перекресток',
     estPrice: '170 – 220 ₽'
@@ -137,6 +151,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'dairy',
     name: 'Биойогурт классический без сахара 2.5–3.2%',
     amount: '3 баночки',
+    icon: '🍶',
     note: 'Для полдников и заправок',
     storeTip: 'ВкусВилл / Активиа натур',
     estPrice: '160 – 210 ₽'
@@ -148,6 +163,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'fruits_berries',
     name: 'Клюква быстрозамороженная дикорастущая',
     amount: '800 г (2 пачки)',
+    icon: '🫐',
     note: 'Главное урологическое оружие: морс без сахара',
     storeTip: 'ВкусВилл / Самокат',
     estPrice: '380 – 480 ₽'
@@ -157,6 +173,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'fruits_berries',
     name: 'Брусника или черника замороженная',
     amount: '500 г',
+    icon: '🫐',
     note: 'Природный антисептик + флавоноиды для памяти',
     storeTip: 'ВкусВилл / 4 Сезона',
     estPrice: '280 – 360 ₽'
@@ -166,6 +183,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'fruits_berries',
     name: 'Яблоки зеленые («Гренни Смит» или «Семеренко»)',
     amount: '1 кг',
+    icon: '🍏',
     note: 'Яблочная кислота для растворения солей',
     storeTip: 'Любой супермаркет',
     estPrice: '140 – 190 ₽'
@@ -175,6 +193,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'fruits_berries',
     name: 'Лимоны свежие',
     amount: '4–5 шт.',
+    icon: '🍋',
     note: 'Вода с лимоном дает цитраты против камней',
     storeTip: 'Любой супермаркет',
     estPrice: '110 – 160 ₽'
@@ -186,6 +205,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'grains',
     name: 'Гречневая крупа ядрица (чистая)',
     amount: '1 пачка (800 г)',
+    icon: '🌾',
     note: 'Безопасные углеводы + природный рутин',
     storeTip: 'ВкусВилл / Мистраль',
     estPrice: '90 – 130 ₽'
@@ -195,6 +215,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'grains',
     name: 'Овсяные хлопья долгой варки (15–20 мин)',
     amount: '1 пачка',
+    icon: '🥣',
     note: '«Геркулес Монастырский» или ВкусВилл',
     storeTip: 'ВкусВилл / Перекресток',
     estPrice: '90 – 140 ₽'
@@ -204,6 +225,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'grains',
     name: 'Хлеб цельнозерновой без сахара',
     amount: '1 буханка',
+    icon: '🍞',
     note: 'Для утренних тостов',
     storeTip: 'ВкусВилл «Тартин цельнозерновой»',
     estPrice: '110 – 150 ₽'
@@ -213,6 +235,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'healthy_fats',
     name: 'Авокадо сорта Хасс (мягкое)',
     amount: '2–3 шт.',
+    icon: '🥑',
     note: 'Жиры для сосудов и гормонального баланса',
     storeTip: 'ВкусВилл / Самокат',
     estPrice: '280 – 380 ₽'
@@ -222,6 +245,7 @@ export const GROCERY_LIST: GroceryItem[] = [
     category: 'healthy_fats',
     name: 'Масло оливковое Extra Virgin',
     amount: '1 бутылка (500 мл)',
+    icon: '🫒',
     note: 'Эндотелий сосудов и противовоспалительный эффект',
     storeTip: 'De Cecco / Monini / ВкусВилл',
     estPrice: '650 – 950 ₽'
@@ -229,8 +253,9 @@ export const GROCERY_LIST: GroceryItem[] = [
   {
     id: 'g-25',
     category: 'beverages',
-    name: 'Минеральная вода гидрокарбонатная («Славяновская» или «Смирновская»)',
+    name: 'Минеральная вода («Славяновская» или «Смирновская»)',
     amount: '6 бутылок по 1–1.5 л',
+    icon: '💧',
     note: 'Слабощелочная минерализация для почек',
     storeTip: 'Аптека / Перекресток / Ашан',
     estPrice: '350 – 480 ₽'

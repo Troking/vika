@@ -138,12 +138,15 @@ export const GroceryModal: React.FC<GroceryModalProps> = ({ isOpen, onClose }) =
                 }`}
               >
                 <div className="flex items-start gap-3 min-w-0">
-                  <div className="mt-0.5 shrink-0">
+                  <div className="mt-1.5 shrink-0">
                     {isChecked ? (
                       <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                     ) : (
                       <Circle className="w-5 h-5 text-slate-300" />
                     )}
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-indigo-50/70 border border-indigo-100/60 flex items-center justify-center text-xl shrink-0 shadow-2xs">
+                    {item.icon}
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">

@@ -20,12 +20,25 @@ export interface Supplement {
   searchUrl?: string;
 }
 
+export interface ProductIngredient {
+  name: string;
+  amount: string;
+  icon: string;
+}
+
 export interface Meal {
   id: string;
   type: 'breakfast' | 'lunch' | 'snack' | 'dinner';
   title: string;
   description: string;
+  icon: string;
+  bgGradient: string;
+  cookTime: string;
+  difficulty: 'Очень просто' | 'Легко' | 'Средне';
   ingredients: string[];
+  products: ProductIngredient[];
+  recipeSteps: string[];
+  chefTip?: string;
   calories: number;
   protein: number;
   fat: number;
@@ -51,6 +64,7 @@ export interface GroceryItem {
   category: 'vegetables' | 'protein' | 'dairy' | 'grains' | 'fruits_berries' | 'healthy_fats' | 'beverages';
   name: string;
   amount: string;
+  icon: string;
   note?: string;
   storeTip: string;
   estPrice: string;

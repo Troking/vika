@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { 
   Sparkles, 
   ShieldAlert, 
@@ -9,13 +10,16 @@ import {
 } from 'lucide-react';
 import { WaterTracker } from './WaterTracker';
 import { PillOrganizer } from './PillOrganizer';
+import { RecipeModal } from './RecipeModal';
 import { WEEKLY_MEAL_PLAN } from '../data/mealPlan';
+import type { Meal } from '../types';
 
 interface DashboardViewProps {
   onNavigateTab: (tab: string) => void;
 }
 
-export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateTab }) => {
+export const DashboardView = ({ onNavigateTab }: DashboardViewProps) => {
+  const [selectedMealForRecipe, setSelectedMealForRecipe] = useState<Meal | null>(null);
   const todayPlan = WEEKLY_MEAL_PLAN[0]; // Monday as sample/default
 
   return (
@@ -119,12 +123,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateTab }) =
         </div>
       </div>
 
-      {/* Today's Meals Quick Peek */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
+      {/* Today's Meals Quick Peek with Cartoon Icons & Click to Recipe */}
+      <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-xs">
         <div className="flex items-center justify-between mb-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">Меню на день</span>
-            <h3 className="text-lg font-bold text-slate-900">{todayPlan.dayName}: {todayPlan.focus}</h3>
+            <h3 className="text-base sm:text-lg font-bold text-slate-900">{todayPlan.dayName}: {todayPlan.focus}</h3>
           </div>
           <button
             onClick={() => onNavigateTab('meals')}
@@ -134,14 +138,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateTab }) =
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
           {todayPlan.meals.map((meal) => (
             <div
               key={meal.id}
-              className="bg-slate-50 rounded-xl p-3.5 border border-slate-100 hover:bg-indigo-50/30 transition flex flex-col justify-between"
+              onClick={() => setSelectedMealForRecipe(meal)}
+              className="bg-slate-50 hover:bg-white rounded-2xl p-3.5 border border-slate-200/80 hover:border-indigo-300 hover:shadow-sm transition cursor-pointer flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1">
+                <div className="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-2">
                   <span className="uppercase">
                     {meal.type === 'breakfast' && 'Завтрак'}
                     {meal.type === 'lunch' && 'Обед'}
@@ -150,14 +155,29 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateTab }) =
                   </span>
                   <span className="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">{meal.calories} ккал</span>
                 </div>
-                <h5 className="text-xs font-bold text-slate-800 mb-1 line-clamp-2">{meal.title}</h5>
-                <p className="text-[11px] text-slate-500 line-clamp-2">{meal.description}</p>
+
+                {/* Cute symbolic dish icon */}
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${meal.bgGradient} flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition shadow-2xs`}>
+                    {meal.icon}
+                  </div>
+                  <h5 className="text-xs font-bold text-slate-800 group-hover:text-indigo-600 transition line-clamp-2">
+                    {meal.title}
+                  </h5>
+                </div>
+
+                <p className="text-[11px] text-slate-500 line-clamp-2 mb-2">{meal.description}</p>
               </div>
 
-              <div className="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-500 font-medium">
-                <span>Б: {meal.protein}г</span>
-                <span>Ж: {meal.fat}г</span>
-                <span>У: {meal.carbs}г</span>
+              <div>
+                <div className="pt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                  <span>Б: {meal.protein}г</span>
+                  <span>Ж: {meal.fat}г</span>
+                  <span>У: {meal.carbs}г</span>
+                </div>
+                <div className="mt-1.5 text-center text-[10px] font-bold text-indigo-600 bg-indigo-50/70 py-1 rounded-lg">
+                  Открыть рецепт и продукты ➔
+                </div>
               </div>
             </div>
           ))}
@@ -183,6 +203,12 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onNavigateTab }) =
           </div>
         </div>
       </div>
+
+      {/* Recipe Modal */}
+      <RecipeModal
+        meal={selectedMealForRecipe}
+        onClose={() => setSelectedMealForRecipe(null)}
+      />
     </div>
   );
 };
