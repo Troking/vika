@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Droplet, Plus, Minus, RotateCcw, ShieldCheck, Sparkles } from 'lucide-react';
+import { Droplet, Plus, Minus, RotateCcw, ShieldCheck, Sparkles, GlassWater } from 'lucide-react';
 
 export const WaterTracker = () => {
   const GLASS_SIZE = 250; // ml
@@ -40,95 +40,122 @@ export const WaterTracker = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-sky-100 shadow-xs">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-600">
-            <Droplet className="w-5 h-5 fill-sky-500" />
+    <div className="card-warm rounded-3xl p-6 flex flex-col justify-between">
+      <div>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600 shadow-2xs">
+              <Droplet className="w-5 h-5 fill-sky-500" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-stone-900">Питьевой баланс почек</h3>
+              <p className="text-xs text-stone-500">Цель: 2 500 мл (чистая вода и некипяченый морс)</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-base font-bold text-slate-800">Гидратация для почек и мочевого</h3>
-            <p className="text-xs text-slate-500">Цель: 2 500 мл (10 стаканов)</p>
+          <button
+            onClick={reset}
+            title="Сбросить счетчик"
+            className="p-2 text-stone-400 hover:text-stone-600 rounded-xl hover:bg-stone-100 transition"
+          >
+            <RotateCcw className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Big Fluid Progress Display */}
+        <div className="bg-gradient-to-br from-sky-50/70 to-blue-50/40 rounded-2xl p-4 border border-sky-100/80 mb-5">
+          <div className="flex justify-between items-baseline mb-2">
+            <div>
+              <span className="text-3xl font-extrabold text-stone-900 tracking-tight">
+                {currentMl}
+              </span>
+              <span className="text-sm font-semibold text-stone-500 ml-1">/ {TARGET_ML} мл</span>
+            </div>
+            <span className="text-xs font-bold text-sky-700 bg-white px-3 py-1 rounded-full border border-sky-200/60 shadow-2xs">
+              {percentage}% нормы
+            </span>
+          </div>
+
+          {/* Smooth Bar */}
+          <div className="w-full bg-white h-3 rounded-full overflow-hidden p-0.5 border border-sky-200/50 shadow-inner">
+            <div
+              className="h-full bg-gradient-to-r from-sky-400 via-sky-500 to-teal-400 rounded-full transition-all duration-500"
+              style={{ width: `${percentage}%` }}
+            />
           </div>
         </div>
-        <button
-          onClick={reset}
-          title="Сбросить счетчик"
-          className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </button>
-      </div>
 
-      {/* Progress Bar & Amount */}
-      <div className="mb-4">
-        <div className="flex justify-between items-baseline mb-1">
-          <span className="text-2xl font-extrabold text-sky-900 tracking-tight">
-            {currentMl} <span className="text-sm font-semibold text-slate-500">/ {TARGET_ML} мл</span>
-          </span>
-          <span className="text-xs font-bold text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full">
-            {percentage}% нормы
-          </span>
+        {/* Glass Icons Grid */}
+        <div className="mb-5">
+          <div className="text-[11px] font-bold uppercase tracking-wider text-stone-500 mb-2 flex items-center justify-between">
+            <span>Отметки выпитых стаканов:</span>
+            <span>{glasses} из {TOTAL_GLASSES}</span>
+          </div>
+          <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+            {Array.from({ length: TOTAL_GLASSES }).map((_, index) => {
+              const isFilled = index < glasses;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setGlasses(index + 1)}
+                  className={`h-11 rounded-xl flex items-center justify-center transition-all ${
+                    isFilled
+                      ? 'bg-sky-500 text-white shadow-xs shadow-sky-200 scale-102'
+                      : 'bg-stone-50 border border-stone-200/80 text-stone-300 hover:border-sky-300 hover:text-sky-400'
+                  }`}
+                  title={`Стакан ${index + 1} (250 мл)`}
+                >
+                  <GlassWater className={`w-4 h-4 ${isFilled ? 'text-white' : ''}`} />
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-linear-to-r from-sky-400 to-indigo-500 rounded-full transition-all duration-500"
-            style={{ width: `${percentage}%` }}
-          />
+
+        {/* Schedule guide */}
+        <div className="space-y-1.5 text-xs text-stone-600 mb-4 bg-stone-50/60 p-3 rounded-2xl border border-stone-100">
+          <div className="text-[11px] font-bold text-stone-700 mb-1 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Умный график питья для Вики:
+          </div>
+          <div className="flex items-center justify-between text-[11px] text-stone-500">
+            <span>• Утро: 1 стакан теплой воды натощак</span>
+            <span className="font-semibold text-stone-700">08:00</span>
+          </div>
+          <div className="flex items-center justify-between text-[11px] text-stone-500">
+            <span>• Днем: вода с долькой лимона (цитраты)</span>
+            <span className="font-semibold text-stone-700">12:00 – 16:00</span>
+          </div>
+          <div className="flex items-center justify-between text-[11px] text-stone-500">
+            <span>• Вечер: клюквенный морс или вода с D-маннозой</span>
+            <span className="font-semibold text-stone-700">21:00</span>
+          </div>
         </div>
       </div>
 
-      {/* Glass Icons Grid */}
-      <div className="grid grid-cols-5 sm:grid-cols-10 gap-2 mb-4">
-        {Array.from({ length: TOTAL_GLASSES }).map((_, index) => {
-          const isFilled = index < glasses;
-          return (
-            <button
-              key={index}
-              onClick={() => setGlasses(index + 1)}
-              className={`h-10 rounded-xl flex items-center justify-center transition-all ${
-                isFilled
-                  ? 'bg-sky-500 text-white shadow-xs shadow-sky-200 scale-105'
-                  : 'bg-slate-50 border border-dashed border-slate-200 text-slate-300 hover:border-sky-300'
-              }`}
-              title={`Стакан ${index + 1} (250 мл)`}
-            >
-              <Droplet className={`w-4 h-4 ${isFilled ? 'fill-white' : ''}`} />
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex items-center justify-between gap-3 pt-2 border-t border-slate-100">
-        <div className="flex items-center gap-2">
+      <div>
+        {/* Quick action buttons */}
+        <div className="flex items-center justify-between gap-3 pt-3 border-t border-stone-100">
           <button
             onClick={removeGlass}
             disabled={glasses === 0}
-            className="h-9 px-3 rounded-lg border border-slate-200 text-slate-600 font-medium hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs flex items-center gap-1"
+            className="h-10 px-3.5 rounded-xl border border-stone-200 text-stone-600 font-medium hover:bg-stone-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs flex items-center gap-1"
           >
             <Minus className="w-3.5 h-3.5" /> -1 стакан
           </button>
           <button
             onClick={addGlass}
-            className="h-9 px-4 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs shadow-xs shadow-sky-200 flex items-center gap-1.5 transition active:scale-95"
+            className="h-10 px-5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs shadow-xs shadow-sky-200 flex items-center gap-2 transition active:scale-95"
           >
             <Plus className="w-4 h-4" /> Выпить стакан (250 мл)
           </button>
         </div>
 
-        {percentage >= 100 && (
-          <div className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-lg">
-            <Sparkles className="w-3.5 h-3.5" /> Норма выполнена!
+        {/* Clinical note */}
+        <div className="mt-3.5 bg-sky-50/80 border border-sky-100 rounded-xl p-2.5 flex items-start gap-2.5 text-[11px] leading-relaxed text-sky-950">
+          <ShieldCheck className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+          <div>
+            <strong>Светло-соломенная прозрачная моча</strong> — главный визуальный ориентир. При таком питьевом режиме соли оксалатов не способны слипаться в камни, а бактерии смываются до начала цистита.
           </div>
-        )}
-      </div>
-
-      {/* Clinical notice */}
-      <div className="mt-3.5 bg-sky-50/70 border border-sky-100 rounded-xl p-2.5 flex items-start gap-2.5 text-[11px] leading-relaxed text-sky-900">
-        <ShieldCheck className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
-        <div>
-          <span className="font-bold">Почему это критично для Вики:</span> При регулярном поступлении жидкости моча не концентрируется, соли (оксалаты/ураты) не слипаются в микролиты, а бактерии не успевают закрепиться на стенках мочевого пузыря.
         </div>
       </div>
     </div>
